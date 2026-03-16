@@ -1,0 +1,154 @@
+@import "colors.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+  border: none;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: @on_surface;
+}
+
+/* base padrão de cápsula */
+#clock,
+#tray,
+#workspaces,
+#custom-spotify,
+#custom-notifications,
+#pulseaudio,
+#custom-power {
+  background: alpha(@surface_container, 0.94);
+  color: @on_surface;
+  border: 1px solid alpha(@outline_variant, 0.50);
+  border-radius: 16px;
+  min-height: 28px;
+}
+
+/* esquerda */
+#clock {
+  padding: 0 14px;
+  margin: 0 4px 0 4px;
+}
+
+#tray {
+  padding: 0 10px;
+  margin: 0 4px 0 4px;
+}
+
+#workspaces {
+  padding: 0 6px;
+  margin: 0 4px 0 4px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: @on_surface_variant;
+  border-radius: 12px;
+  padding: 0 10px;
+  margin: 4px 2px;
+  transition: none;
+}
+
+#workspaces button.active {
+  background: @inverse_surface;
+  color: @inverse_on_surface;
+}
+
+#workspaces button:hover {
+  background: alpha(@surface_container_highest, 0.95);
+  color: @on_surface;
+}
+
+/* centro */
+#custom-spotify {
+  padding: 0 18px;
+  margin: 0 4px;
+}
+
+/* direita: cápsulas separadas e limpas */
+#custom-notifications {
+  min-width: 18px;
+  padding: 0 12px;
+  margin: 0 4px;
+}
+
+#pulseaudio {
+  padding: 0 14px;
+  margin: 0 4px;
+}
+
+#custom-power {
+  min-width: 18px;
+  padding: 0 14px;
+  margin: 0 4px;
+}
+
+/* hover */
+#clock:hover,
+#tray:hover,
+#workspaces:hover,
+#custom-spotify:hover,
+#custom-notifications:hover,
+#pulseaudio:hover,
+#custom-power:hover {
+  background: alpha(@surface_container_high, 0.96);
+}
+
+/* tooltip */
+tooltip {
+  background: @surface_container_high;
+  color: @on_surface;
+  border-radius: 12px;
+  border: 1px solid alpha(@outline_variant, 0.45);
+}
+
+/* WEATHER MODULE */
+#custom-weather {
+  background: alpha(@surface_container, 0.94);
+  color: @on_surface;
+  border: 1px solid alpha(@outline_variant, 0.50);
+  border-radius: 16px;
+
+  padding-left: 14px;
+  padding-right: 14px;
+
+  min-height: 28px;
+
+  margin-left: 4px;
+  margin-right: 4px;
+
+  transition: all 0.15s ease;
+}
+
+/* hover */
+#custom-weather:hover {
+  background: alpha(@surface_container_high, 0.95);
+  color: @on_surface;
+}
+
+/* tooltip */
+#custom-weather tooltip {
+  background: @surface_container_high;
+  color: @on_surface;
+  border-radius: 12px;
+  border: 1px solid alpha(@outline_variant, 0.45);
+  padding: 8px;
+}
+
+/* language */
+#language {
+  background: alpha(@surface_container, 0.94);
+  color: @on_surface;
+  border: 1px solid alpha(@outline_variant, 0.50);
+  border-radius: 16px;
+  min-height: 28px;
+  padding: 0 12px;
+  margin: 0 4px;
+}
+
+#language:hover {
+  background: alpha(@surface_container_high, 0.96);
+}

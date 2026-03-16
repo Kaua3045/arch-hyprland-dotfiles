@@ -1,0 +1,104 @@
+@import "colors.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+  min-height: 0;
+}
+
+/* barra transparente */
+
+window#waybar {
+  background: transparent;
+  color: @on_surface;
+}
+
+/* módulos */
+
+#clock,
+#custom-weather,
+#custom-spotify,
+#custom-notifications,
+#network,
+#pulseaudio,
+#tray,
+#custom-power {
+  background: @surface_container;
+  color: @on_surface;
+  margin: 0 4px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid @outline_variant;
+  min-height: 28px;
+}
+
+/* spotify */
+
+#custom-spotify {
+  color: @primary;
+}
+
+/* hover */
+
+#clock:hover,
+#custom-weather:hover,
+#custom-spotify:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-power:hover {
+  background: @surface_container_high;
+}
+
+/* tray */
+
+#tray {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* notificações */
+
+#custom-notifications {
+  color: @primary;
+}
+
+/* botão power */
+
+#custom-power {
+  color: @error;
+}
+
+/* tooltips */
+
+tooltip {
+  background: @surface_container_high;
+  border-radius: 12px;
+  border: 1px solid @outline_variant;
+  color: @on_surface;
+}
+
+/* workspace se usar */
+
+#workspaces {
+  background: @surface_container;
+  border-radius: 14px;
+  padding: 0 6px;
+}
+
+#workspaces button {
+  color: @on_surface_variant;
+  padding: 0 8px;
+  margin: 4px 2px;
+  border-radius: 10px;
+}
+
+#workspaces button.active {
+  background: @primary_container;
+  color: @on_primary_container;
+}
+
+#workspaces button:hover {
+  background: @surface_container_high;
+}

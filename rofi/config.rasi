@@ -1,0 +1,137 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    display-drun: "Applications";
+    display-run: "Run";
+    display-window: "Windows";
+    drun-display-format: "{name}";
+    hover-select: true;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+}
+
+* {
+    bg:             #121318;
+    bg-alt:         #1a1b20;
+    bg-card:        #1e1f25;
+    bg-hover:       #282a2f;
+    fg:             #e2e2e9;
+    fg-muted:       #c5c6d0;
+    accent:         #b0c6ff;
+    accent-fg:      #152e60;
+    border-col:     #44464f;
+
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    fullscreen: false;
+    width: 980px;
+    height: 560px;
+    border: 2px;
+    border-radius: 24px;
+    border-color: @border-col;
+    background-color: @bg;
+}
+
+mainbox {
+    orientation: vertical;
+    children: [inputbar, listview, mode-switcher];
+    spacing: 14px;
+    padding: 18px;
+    background-color: transparent;
+}
+
+inputbar {
+    children: [entry];
+    background-color: @bg-card;
+    text-color: @fg;
+    border-radius: 18px;
+    padding: 16px 18px;
+    border: 0px;
+}
+
+entry {
+    background-color: transparent;
+    text-color: @fg;
+    placeholder: "Search";
+    placeholder-color: @fg-muted;
+}
+
+listview {
+    columns: 1;
+    lines: 7;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    spacing: 10px;
+    background-color: transparent;
+    border: 0px;
+}
+
+element {
+    orientation: horizontal;
+    children: [element-icon, element-text];
+    spacing: 14px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @accent-fg;
+}
+
+element selected.active {
+    background-color: @accent;
+    text-color: @accent-fg;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 28px;
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}
+
+mode-switcher {
+    orientation: horizontal;
+    spacing: 14px;
+    background-color: transparent;
+    border: 0px;
+}
+
+button {
+    background-color: @bg-card;
+    text-color: @fg;
+    border-radius: 16px;
+    padding: 14px 22px;
+    border: 0px;
+}
+
+button selected {
+    background-color: @accent;
+    text-color: @accent-fg;
+}

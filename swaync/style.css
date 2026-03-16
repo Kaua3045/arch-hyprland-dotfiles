@@ -1,0 +1,139 @@
+@import "../waybar/colors.css";
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", sans-serif;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+/* painel */
+.control-center {
+  background: alpha(@surface_container, 0.96);
+  color: @on_surface;
+  border: 1px solid alpha(@outline_variant, 0.45);
+  border-radius: 28px;
+}
+
+/* remove aparência padrão estranha */
+.control-center-list,
+.control-center-list-placeholder {
+  background: transparent;
+  border: none;
+}
+
+/* topo */
+.widget-title {
+  background: transparent;
+  color: @on_surface;
+  padding: 16px 18px 8px 18px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.widget-title button {
+  background: alpha(@surface_container_high, 0.95);
+  color: @on_surface;
+  border-radius: 14px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+/* player */
+.widget-mpris {
+  background: alpha(@surface_container_high, 0.92);
+  border-radius: 22px;
+  margin: 10px 14px;
+  padding: 14px;
+  color: @on_surface;
+}
+
+.widget-mpris .widget-mpris-player {
+  border-radius: 18px;
+  background: alpha(@surface_container_highest, 0.86);
+  padding: 12px;
+}
+
+/* DND */
+.widget-dnd {
+  background: transparent;
+  margin: 4px 14px 10px 14px;
+  padding: 0;
+  color: @on_surface;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.widget-dnd > switch {
+  background: alpha(@surface_container_high, 0.95);
+  border-radius: 999px;
+  min-width: 46px;
+  min-height: 26px;
+}
+
+.widget-dnd > switch slider {
+  background: @inverse_surface;
+  border-radius: 999px;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.widget-dnd > switch:checked {
+  background: @primary_container;
+}
+
+/* lista */
+.widget-notifications {
+  background: transparent;
+  margin: 0 10px 10px 10px;
+  padding: 0;
+}
+
+.notification-group,
+.notification-row {
+  background: transparent;
+}
+
+.notification {
+  background: alpha(@surface_container_high, 0.94);
+  color: @on_surface;
+  border-radius: 18px;
+  border: 1px solid alpha(@outline_variant, 0.35);
+  padding: 12px;
+  margin: 6px 4px;
+}
+
+.notification:hover {
+  background: alpha(@surface_container_highest, 0.98);
+}
+
+.notification-content {
+  background: transparent;
+  color: @on_surface;
+}
+
+.notification-default-action,
+.notification-action {
+  background: alpha(@secondary_container, 0.9);
+  color: @on_secondary_container;
+  border-radius: 12px;
+}
+
+.notification-action:hover,
+.notification-default-action:hover {
+  background: alpha(@primary_container, 0.92);
+  color: @on_primary_container;
+}
+
+/* vazio: igual ao print */
+.control-center-list-placeholder {
+  color: @on_surface_variant;
+  font-size: 18px;
+  opacity: 1;
+  padding: 40px 0 80px 0;
+}
+
+.control-center-list-placeholder image {
+  -gtk-icon-size: 96px;
+  color: @on_surface_variant;
+  opacity: 0.9;
+}

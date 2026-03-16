@@ -1,0 +1,81 @@
+@import "../waybar/colors.css";
+
+* {
+  background-image: none;
+  box-shadow: none;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", sans-serif;
+}
+
+window {
+  background-color: alpha(@scrim, 0.35);
+}
+
+button {
+  color: @on_surface;
+  background-color: alpha(@surface_container, 0.92);
+  border: 1px solid alpha(@outline_variant, 0.55);
+  border-radius: 22px;
+  margin: 22px;
+  min-width: 360px;
+  min-height: 230px;
+  background-repeat: no-repeat;
+  background-position: center 58px;
+  background-size: 88px;
+  transition: all 0.15s ease-in-out;
+}
+
+button:focus,
+button:active,
+button:hover {
+  background-color: alpha(@surface_container_high, 0.96);
+  border: 1px solid alpha(@primary, 0.45);
+  outline-style: none;
+}
+
+button label {
+  color: @on_surface;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 140px;
+}
+
+/* LOCK */
+button#lock {
+  background-image: image(-gtk-icontheme("system-lock-screen-symbolic"));
+}
+
+/* SHUTDOWN */
+button#shutdown {
+  background-image: image(-gtk-icontheme("system-shutdown-symbolic"));
+}
+
+/* SUSPEND */
+button#suspend {
+  background-image: image(-gtk-icontheme("media-playback-pause-symbolic"));
+}
+
+/* REBOOT */
+button#reboot {
+  background-image: image(-gtk-icontheme("view-refresh-symbolic"));
+}
+
+/* LOGOUT */
+button#logout {
+  background-image: image(-gtk-icontheme("system-log-out-symbolic"));
+  background-color: alpha(@secondary_container, 0.96);
+}
+
+button#logout:hover,
+button#logout:focus,
+button#logout:active {
+  background-color: alpha(@primary_container, 0.92);
+}
+
+button#logout label {
+  color: @on_primary_container;
+}
+
+/* HIBERNATE */
+button#hibernate {
+  background-image: image(-gtk-icontheme("weather-clear-night-symbolic"));
+}
