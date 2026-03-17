@@ -27,7 +27,21 @@
 
   "clock": {
     "format": " {:%H:%M}",
-    "tooltip-format": "{:%A, %d de %B de %Y}"
+    "tooltip-format": "<big>{:%A, %d de %B de %Y}</big>\n<tt>{calendar}</tt>",
+    "on-click": "gsimplecal",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": 3,
+      "on-scroll": 1,
+      "format": {
+        "monts": "<span color='#b0c6ff'><b>{}</b></span>",
+        "days": "<span color='#e2e2e9'>{}</span>",
+        "weeks": "<span color='#c5c6d0'><b>W{}</b></span>",
+        "weekdays": "<span color='#b0c6ff'><b>{}</b></span>",
+        "today": "<span color='#ffb4ab'><b>{}</b></span>"
+      }
+    }
   },
 
   "tray": {
@@ -54,8 +68,8 @@
     "interval": 2,
     "return-type": "text",
     "on-click": "playerctl play-pause",
-    "on-click-right": "playerctl next",
-    "on-click-middle": "playerctl previous"
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
   },
 
   "custom/notifications": {
