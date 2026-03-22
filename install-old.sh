@@ -209,10 +209,12 @@ setup_zsh() {
 }
 
 install_nvm() {
+  log "Installing NVM"
   [[ -d "$HOME/.nvm" ]] || curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
   append_if_missing "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
   append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+  append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
 
   export NVM_DIR="$HOME/.nvm"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
@@ -224,13 +226,23 @@ install_nvm() {
 }
 
 install_sdkman() {
+  log "Installing SDKMAN"
   [[ -d "$HOME/.sdkman" ]] || curl -s "https://get.sdkman.io" | bash
+
+  append_if_missing "$HOME/.zshrc" 'export SDKMAN_DIR="$HOME/.sdkman"'
+  append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
 }
 
 install_pnpm() {
-  if need_cmd npm && ! need_cmd pnpm; then
-    npm install -g pnpm
-  fi
+  log "Installing pnpm"
+  if need_cmd pnpm; then return; fi
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
+
+  append_if_missing "$HOME/.zshrc" 'export PNPM_HOME="$HOME/.local/share/pnpm"'
+  append_if_missing "$HOME/.zshrc" 'case ":$PATH:" in'
+  append_if_missing "$HOME/.zshrc" '  *":$PNPM_HOME:"*) ;;'
+  append_if_missing "$HOME/.zshrc" '  *) export PATH="$PNPM_HOME:$PATH" ;;'
+  append_if_missing "$HOME/.zshrc" 'esac'
 }
 
 #######################################
