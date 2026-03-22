@@ -22,4 +22,4 @@ source <(fzf --zsh)
 setopt AUTO_CD
 
 # Starship Prompt
-eval "$(starshipt init zsh)"
+eval "$(starship init zsh)"
