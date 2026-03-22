@@ -51,6 +51,7 @@ PACMAN_PACKAGES=(
   docker
   docker-compose
   fastfetch
+  xdg-user-dirs
 )
 
 AUR_PACKAGES=(
@@ -132,6 +133,14 @@ chmod_scripts() {
   find "$DOTFILES_DIR" -type f -name "*.sh" -exec chmod +x {} \; || true
 }
 
+#######################################
+# SYSTEM SETUP
+#######################################
+setup_user_dirs() {
+  log "Creating default user directories"
+  xdg-user-dirs-update
+}
+
 setup_wallpapers_dir() {
   mkdir -p "$HOME/Pictures/wallpapers"
 }
@@ -160,7 +169,7 @@ setup_sddm_theme() {
 }
 
 #######################################
-# SYSTEM
+# SYSTEM INSTALL
 #######################################
 install_pacman_packages() {
   log "Updating system"
@@ -232,6 +241,8 @@ main() {
   install_yay
   install_aur_packages
 
+  setup_user_dirs
+
   clone_or_update_dotfiles
   copy_dotfiles
   chmod_scripts
@@ -249,10 +260,7 @@ main() {
 
   log "Setup finished 🚀"
 
-  # opcional: mostrar fastfetch no final
-  if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch
-  fi
+  fastfetch || true
 
   echo "Reboot or relogin is recommended."
 }
