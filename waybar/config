@@ -8,25 +8,28 @@
   "margin-right": 12,
 
   "modules-left": [
-    "clock",
-    "custom/weather",
     "tray",
-    "hyprland/workspaces"
+    "hyprland/workspaces",
+    "custom/spotify"
   ],
 
   "modules-center": [
-    "custom/spotify"
+    "clock",
+    "custom/weather"
   ],
 
   "modules-right": [
     "custom/notifications",
     "hyprland/language",
+    "bluetooth",
+    "network",
+    "battery",
     "pulseaudio",
     "custom/power"
   ],
 
   "clock": {
-    "format": " {:%H:%M}",
+    "format": "{:%H:%M | %b %d}",
     "tooltip-format": "<big>{:%A, %d de %B de %Y}</big>\n<tt>{calendar}</tt>",
     "on-click": "gsimplecal",
     "calendar": {
@@ -52,8 +55,20 @@
   "hyprland/workspaces": {
     "disable-scroll": false,
     "all-outputs": false,
-    "format": "{name}",
-    "on-click": "activate"
+    "format": "{icon}",
+    "on-click": "activate",
+    "fortmat-icons": {
+      "1": "i",
+      "2": "ii",
+      "3": "iii",
+      "4": "iv",
+      "5": "v",
+      "6": "vi",
+      "7": "vii",
+      "8": "viii",
+      "9": "ix",
+      "10": "x"
+    }
   },
 
   "custom/weather": {
@@ -86,6 +101,33 @@
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "  {bandwidthDownBytes}",
+    "format-ethernet": "󰌗 {bandwidthDownBytes}",
+    "format-disconnected": "󰖪 offline",
+    "interval": 1
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-critical": "󰂃 {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip": true
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-connected": "󰂯 {num_connections}",
+    "tooltip-format": "{device_alias}",
+    "on-click": "blueman-manager"
   },
 
   "custom/power": {

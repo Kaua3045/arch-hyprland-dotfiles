@@ -19,6 +19,9 @@ window#waybar {
 #custom-spotify,
 #custom-notifications,
 #pulseaudio,
+#network,
+#battery,
+#bluetooth,
 #custom-power {
   background: alpha(@surface_container, 0.94);
   color: @on_surface;
@@ -93,6 +96,9 @@ window#waybar {
 #custom-spotify:hover,
 #custom-notifications:hover,
 #pulseaudio:hover,
+#network:hover,
+#battery:hover
+#bluetooth:hover,
 #custom-power:hover {
   background: alpha(@surface_container_high, 0.96);
 }
@@ -151,4 +157,20 @@ tooltip {
 
 #language:hover {
   background: alpha(@surface_container_high, 0.96);
+}
+
+/* network and battery */
+#network {
+  padding: 0 16px;
+  margin: 0 4px;
+}
+
+#battery {
+  padding: 0 12px;
+  margin: 0 4px;
+}
+
+#bluetooth {
+  padding: 0 12px;
+  margin: 0 4px;
 }
