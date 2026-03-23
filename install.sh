@@ -256,27 +256,15 @@ install_nvm_and_pnpm() {
   export NVM_DIR="$HOME/.nvm"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
 
-  if ! command -v nvm >/dev/null 2>&1; then
-    warn "NVM could not be loaded"
-    return 1
-  fi
+  set +u
 
   nvm install --lts
   nvm alias default lts/*
   nvm use --lts
 
-  if ! command -v node >/dev/null 2>&1; then
-    warn "Node installation failed"
-    return 1
-  fi
+  set -u
 
   npm install -g pnpm
-
-  if ! command -v pnpm >/dev/null 2>&1; then
-    warn "pnpm installation failed"
-    return 1
-  fi
-
   hash -r
 }
 
