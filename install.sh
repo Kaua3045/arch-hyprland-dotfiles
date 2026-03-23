@@ -243,23 +243,41 @@ setup_zsh() {
 }
 
 install_nvm_and_pnpm() {
-  log "Installing NVM"
-  [[ -d "$HOME/.nvm" ]] || curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  log "Installing NVM and pnpm"
 
-  # append_if_missing "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
-  # append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-  # append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+  if [[ ! -d "$HOME/.nvm" ]]; then
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  fi
+
+  append_if_missing "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
+  append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+  append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"'
 
   export NVM_DIR="$HOME/.nvm"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
 
-  if need_cmd nvm; then
-    nvm install --lts
-    nvm use --lts
+  if ! command -v nvm >/dev/null 2>&1; then
+    warn "NVM could not be loaded"
+    return 1
   fi
 
-  corepack enable
-  corepack prepare pnpm@latest --activate
+  nvm install --lts
+  nvm alias default lts/*
+  nvm use --lts
+
+  if ! command -v node >/dev/null 2>&1; then
+    warn "Node installation failed"
+    return 1
+  fi
+
+  npm install -g pnpm
+
+  if ! command -v pnpm >/dev/null 2>&1; then
+    warn "pnpm installation failed"
+    return 1
+  fi
+
+  hash -r
 }
 
 install_sdkman() {
@@ -269,11 +287,20 @@ install_sdkman() {
     curl -fsSL "https://get.sdkman.io" | bash
   fi
 
+  append_if_missing "$HOME/.zshrc" 'export SDKMAN_DIR="$HOME/.sdkman"'
+  append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
+
   export SDKMAN_DIR="$HOME/.sdkman"
   [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-  if [[ ! -d "$HOME/.sdkman" ]]; then
+  if [[ ! -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
     warn "SDKMAN installation failed"
+    return 1
+  fi
+
+  if ! command -v sdk >/dev/null 2>&1; then
+    warn "sdk command not available after installation"
+    return 1
   fi
 }
 
@@ -325,6 +352,20 @@ main() {
   install_nvm_and_pnpm
   install_sdkman
   # install_pnpm
+
+    log "Validating installations"
+
+  export NVM_DIR="$HOME/.nvm"
+  [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
+
+  export SDKMAN_DIR="$HOME/.sdkman"
+  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+  echo "nvm: $(command -v nvm || echo not-found)"
+  echo "node: $(command -v node || echo not-found)"
+  echo "npm: $(command -v npm || echo not-found)"
+  echo "pnpm: $(command -v pnpm || echo not-found)"
+  echo "sdk: $(command -v sdk || echo not-found)"
 
   log "Setup finished 🚀"
 
