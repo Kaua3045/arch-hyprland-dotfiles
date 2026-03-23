@@ -19,6 +19,8 @@ CONFIG_DIRS=(
 SDDM_BACKGROUND_RELATIVE_PATH="sddm/background.jpg"
 
 PACMAN_PACKAGES=(
+  unzip
+  zip
   gvfs
   tracker3
   discord
