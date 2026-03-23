@@ -19,6 +19,8 @@ CONFIG_DIRS=(
 SDDM_BACKGROUND_RELATIVE_PATH="sddm/background.jpg"
 
 PACMAN_PACKAGES=(
+  gvfs
+  tracker3
   discord
   noto-fonts
   hyprland
@@ -143,9 +145,41 @@ setup_user_dirs() {
   xdg-user-dirs-update
 }
 
-setup_wallpapers_dir() {
-  mkdir -p "$HOME/Pictures/wallpapers"
+setup_nautilus_bookmarks() {
+  log "Setting up Nautilus bookmarks"
+
+  mkdir -p "$HOME/.config/gtk-3.0"
+
+  cat > "$HOME/.config/gtk-3.0/bookmarks" <<EOF
+file://$HOME/Desktop Desktop
+file://$HOME/Documents Documents
+file://$HOME/Downloads Downloads
+file://$HOME/Music Music
+file://$HOME/Pictures Pictures
+file://$HOME/Videos Videos
+file://$HOME/Public Public
+file://$HOME/Templates Templates
+EOF
 }
+
+setup_wallpapers_dir() {
+  log "Setting up wallpapers"
+
+  local SRC="$DOTFILES_DIR/wallpapers"
+  local DEST="$HOME/Pictures/wallpapers"
+
+  mkdir -p "$DEST"
+
+  if [[ -d "$SRC" ]]; then
+    cp -rf "$SRC/." "$DEST/"
+  else
+    warn "Wallpapers folder not found in repo: $SRC"
+  fi
+}
+
+# setup_wallpapers_dir() {
+#   mkdir -p "$HOME/Pictures/wallpapers"
+# }
 
 setup_sddm_theme() {
   log "Setting up custom SDDM theme"
@@ -212,9 +246,9 @@ install_nvm() {
   log "Installing NVM"
   [[ -d "$HOME/.nvm" ]] || curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
-  append_if_missing "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
-  append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-  append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
+  # append_if_missing "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
+  # append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+  # append_if_missing "$HOME/.zshrc" '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
 
   export NVM_DIR="$HOME/.nvm"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
@@ -229,8 +263,8 @@ install_sdkman() {
   log "Installing SDKMAN"
   [[ -d "$HOME/.sdkman" ]] || curl -s "https://get.sdkman.io" | bash
 
-  append_if_missing "$HOME/.zshrc" 'export SDKMAN_DIR="$HOME/.sdkman"'
-  append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
+  # append_if_missing "$HOME/.zshrc" 'export SDKMAN_DIR="$HOME/.sdkman"'
+  # append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
 }
 
 install_pnpm() {
@@ -238,11 +272,11 @@ install_pnpm() {
   if need_cmd pnpm; then return; fi
   curl -fsSL https://get.pnpm.io/install.sh | sh -
 
-  append_if_missing "$HOME/.zshrc" 'export PNPM_HOME="$HOME/.local/share/pnpm"'
-  append_if_missing "$HOME/.zshrc" 'case ":$PATH:" in'
-  append_if_missing "$HOME/.zshrc" '  *":$PNPM_HOME:"*) ;;'
-  append_if_missing "$HOME/.zshrc" '  *) export PATH="$PNPM_HOME:$PATH" ;;'
-  append_if_missing "$HOME/.zshrc" 'esac'
+  # append_if_missing "$HOME/.zshrc" 'export PNPM_HOME="$HOME/.local/share/pnpm"'
+  # append_if_missing "$HOME/.zshrc" 'case ":$PATH:" in'
+  # append_if_missing "$HOME/.zshrc" '  *":$PNPM_HOME:"*) ;;'
+  # append_if_missing "$HOME/.zshrc" '  *) export PATH="$PNPM_HOME:$PATH" ;;'
+  # append_if_missing "$HOME/.zshrc" 'esac'
 }
 
 #######################################
@@ -256,6 +290,7 @@ main() {
   install_aur_packages
 
   setup_user_dirs
+  setup_nautilus_bookmarks
 
   clone_or_update_dotfiles
   copy_dotfiles
