@@ -179,10 +179,6 @@ setup_wallpapers_dir() {
   fi
 }
 
-# setup_wallpapers_dir() {
-#   mkdir -p "$HOME/Pictures/wallpapers"
-# }
-
 setup_sddm_theme() {
   log "Setting up custom SDDM theme"
 
@@ -281,38 +277,16 @@ install_sdkman() {
   append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
 
   export SDKMAN_DIR="$HOME/.sdkman"
-  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-  if [[ ! -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]]; then
-    warn "SDKMAN installation failed"
-    return 1
-  fi
+  set +u
+  [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+  set -u
 
   if ! command -v sdk >/dev/null 2>&1; then
     warn "sdk command not available after installation"
     return 1
   fi
 }
-
-# install_sdkman() {
-#   log "Installing SDKMAN"
-#   [[ -d "$HOME/.sdkman" ]] || curl -s "https://get.sdkman.io" | bash
-
-#   # append_if_missing "$HOME/.zshrc" 'export SDKMAN_DIR="$HOME/.sdkman"'
-#   # append_if_missing "$HOME/.zshrc" '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"'
-# }
-
-# install_pnpm() {
-#   log "Installing pnpm"
-#   if need_cmd pnpm; then return; fi
-#   curl -fsSL https://get.pnpm.io/install.sh | sh -
-
-#   # append_if_missing "$HOME/.zshrc" 'export PNPM_HOME="$HOME/.local/share/pnpm"'
-#   # append_if_missing "$HOME/.zshrc" 'case ":$PATH:" in'
-#   # append_if_missing "$HOME/.zshrc" '  *":$PNPM_HOME:"*) ;;'
-#   # append_if_missing "$HOME/.zshrc" '  *) export PATH="$PNPM_HOME:$PATH" ;;'
-#   # append_if_missing "$HOME/.zshrc" 'esac'
-# }
 
 #######################################
 # MAIN
@@ -338,12 +312,10 @@ main() {
   setup_docker_user
 
   setup_zsh
-  # install_nvm
   install_nvm_and_pnpm
   install_sdkman
-  # install_pnpm
 
-    log "Validating installations"
+  log "Validating installations"
 
   export NVM_DIR="$HOME/.nvm"
   [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
