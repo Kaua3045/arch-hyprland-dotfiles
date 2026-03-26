@@ -19,6 +19,7 @@ CONFIG_DIRS=(
 SDDM_BACKGROUND_RELATIVE_PATH="sddm/background.jpg"
 
 PACMAN_PACKAGES=(
+  telegram-desktop
   unzip
   zip
   gvfs
